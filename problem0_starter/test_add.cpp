@@ -15,6 +15,3 @@ TEST_CASE("Test add", "[Add]"){
 //add the 5 required test cases here
 
 
-
-//answer the two other questions here in comments
-//
