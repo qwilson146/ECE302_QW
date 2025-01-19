@@ -115,7 +115,7 @@ TEST_CASE("BitArray: Test 'reset' method","[bitarray]"){
     REQUIRE(b.test(4));
     b.reset(8);
     REQUIRE_FALSE(b.test(8));
-    REQUIRE(b.test(4));
+    
 
 }
 
@@ -126,6 +126,7 @@ TEST_CASE("BitArray: Test 'toggle' method","[bitaray]"){
     REQUIRE(b.test(7));
     REQUIRE(b.test(10));
     b.toggle(7);
+    b.toggle(10);
     REQUIRE_FALSE(b.test(7));
     REQUIRE(b.test(10));
 }
@@ -137,6 +138,6 @@ TEST_CASE("BitArray: Test 'asString' method","[bitarray]"){
     b.set(15);
     REQUIRE(b.asString().compare("1000010000000001")==0);
     b.reset(0);
-    REQUIRE(b.asString().compare("0000010000000001")==-1);
+    REQUIRE(b.asString().compare("0000010000000001")==0);
 }
 

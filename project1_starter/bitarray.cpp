@@ -2,49 +2,54 @@
 #include <cmath>
 #include <stdexcept>
 
-BitArray::BitArray() {
-    numbits=8; //8 in a byte
-    point= new uint8_t[1];
-    *point=0;
-    Valid=true;
+//Talked with TA Elyse for help identifying errors and possible memory leaks when submitting with autograder
+//When encountering an unknown error, searched it on GPT to see possible reasons as to why the error was occuring. Through extensive reading
+//reasons from GPT and revisting my code to debug, errors were solved and code functions as it should. 
 
-}
+BitArray::BitArray():numbits(8),point(new uint8_t[1]{0}),Valid(true) {}
 
 BitArray::BitArray(intmax_t size) {
     // TODO
-    Valid=size>0;
-    if(Valid){
-        numbits=size;
-        intmax_t size1=(numbits-1)/8+1;
-        point = new uint8_t[size1];
-        for(intmax_t i=0; i<size1;i++)
-        *(point+i)=0;
+    
+    if(size<=0){
+        numbits=0;
+        point=nullptr;
+        Valid=false;
+        return;
+
+
     }
+    numbits=size;
+    intmax_t size1=(numbits+7)/8;
+    point=new uint8_t[size1]();
+    Valid=true;
 }
 
 BitArray::BitArray(const std::string & value) {
     // TODO
     numbits=value.length();
-    intmax_t size1=(numbits-1)/8+1;
-    point=new uint8_t[size1];
     Valid=true;
+    intmax_t size1 = (numbits+7)/8;
+    point=new uint8_t[size1]();
 
-    for(intmax_t i=0; i<size1;i++){
-        *(point+i)=0;
-    for(intmax_t i=0;i<8*size1;i++){
-        if(i>=8-((numbits-1)%8+1)){
-            int val=value[i+(numbits-1)%8-7]-48;
-            Valid=Valid && (val==0||val==1);
-            *(point+i/8)+=val*std::pow(2,7-i%8);
 
-    }
+    for(intmax_t i=0; i<numbits;i++){
+        if(value[i]!='0'&& value[i]!='1'){
+            Valid=false;
+            break;
+
+        }
+        if (value[i]=='1'){
+            point[i/8]|=(1<<(7-(i%8)));
         }
     }
+
 }
 
 BitArray::~BitArray() {
     // TODO
     delete[] point;
+    point=nullptr;
 
 }
 
@@ -59,86 +64,56 @@ bool BitArray::good()const{
 
 std::string BitArray::asString()const{
     
-    intmax_t size1=(numbits-1)/8+1;
-    std::string returnstrng="";
-    for (intmax_t i=0; i<size1;i++){
-        uint8_t val=point[i];
-        int bits=8;
-        if(i==0&& numbits%8 !=0){
-            bits=numbits %8;
-        }
-
-        for(int j=bits-1;j>=0;--j){
-            int bitval=(val/static_cast<int>(std::pow(2,j)))%2;
-            if(bitval==1){
-                returnstrng+='1';
-
-            }else{
-                returnstrng+='0';
-            }
-        }
+    std::string result;
+    for (intmax_t i = 0; i < numbits; ++i) {
+        bool bit = (point[i / 8] & (1 << (7 - (i % 8)))) != 0;
+        result += (bit ? '1' : '0');
     }
-    return returnstrng;
 
+    return result;
 }
 
 void BitArray::reset(intmax_t index){
 
-    Valid=Valid&& (index<numbits||index>=0);
+    if(index>=0&& index<numbits){
+        point[index/8]&=~(1<<(7-(index%8)));
 
-    intmax_t size1=(numbits-1)/8+1;
-    std::string bitString=asString();
-    bitString.replace(index,1,"0");
-
-    for(intmax_t i=0;i<size1;i++)
-    *(point+i)=0;
-    
-    for ( intmax_t i=1;i<size1;i++){
-        if (i>=8-((numbits-1)%8+1)){
-            int val=bitString[i+(numbits-1)%8-7]-48;
-            *(point+i/8)+=val *std::pow(2,7-i%8);
-        }
+    }else{
+        Valid=false;
     }
-
 }
 
 
 
 void BitArray::toggle(intmax_t index){
 
-    if (test(index)){
-        reset(index);
-    }else{
-        set(index);
+    if(index >=0 && index< numbits){
+        point[index/8]^=(1<<(7-(index%8)));
+    }
+    else{
+        Valid=false;
     }
 
 }
 
 
 bool BitArray::test(intmax_t index){
+    if(index>=0&& index<numbits){
+        return(point[index/8]&(1<<(7-(index%8))))!=0;
 
-    Valid=Valid&&(index>=0|| index< numbits);
-    std::string bitString =asString();
-    return Valid && bitString[index]=='1';
+    }
+
+    Valid=false;;
 }
 
 
 void BitArray::set(intmax_t index)
 {
-    Valid = Valid && (index >= 0 || index < numbits);
-    intmax_t size1 = (numbits-1) / 8 + 1;
-    std::string bitString = asString();
-    bitString.replace(index,1,"1");
-    for(intmax_t i = 0; i < size1; i++)
-        *(point+i) = 0;
+    if(index>=0&& index<numbits){
+        point[index/8]|=(1<<(7-(index%8)));
 
-    for(intmax_t i = 0; i < 8*size1; i++)
-    {
-        if(i >= 8-((numbits-1)%8 + 1)) 
-        {
-            int val = bitString[i + (numbits-1)%8 - 7] - 48;
-            *(point+i/8) += val * std::pow(2,7-i%8);
-        }
+    } else{
+        Valid=false;
     }
 }
 

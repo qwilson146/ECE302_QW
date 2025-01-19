@@ -1,6 +1,7 @@
 #ifndef BITARRAY_HPP
 #define BITARRAY_HPP
 #include <stdint.h>
+#include <stdlib.h>
 #include <string>
 
 #include "bitset.hpp"
