@@ -89,3 +89,53 @@ TEST_CASE("Bitarray: Test many given methods combined", "[bitarray]")
             ));
     }
 }
+
+//additional test cases for the recent implementations in bitarray.cpp
+//4 additionals needed 1 for test, reset, toggle, and as string
+
+
+//test implementation test cases
+
+
+TEST_CASE("BitArray: Test 'test' method","[bitarray]"){
+    BitArray b(10);
+    b.set(6);
+    REQUIRE(b.test(6));
+    REQUIRE_FALSE(b.test(2));
+    REQUIRE_FALSE(b.test(9));
+
+}
+
+TEST_CASE("BitArray: Test 'reset' method","[bitarray]"){
+    BitArray b(12);
+    b.set(8);
+    b.set(4);
+    REQUIRE(b.test(8));
+    REQUIRE(b.test(4));
+    b.reset(8);
+    REQUIRE_FALSE(b.test(8));
+    REQUIRE(b.test(4));
+
+}
+
+TEST_CASE("BitArray: Test 'toggle' method","[bitaray]"){
+    BitArray b(15);
+    b.toggle(7);
+    b.toggle(10);
+    REQUIRE(b.test(7));
+    REQUIRE(b.test(10));
+    b.toggle(7);
+    REQUIRE_FALSE(b.test(7));
+    REQUIRE(b.test(10));
+}
+
+TEST_CASE("BitArray: Test 'asString' method","[bitarray]"){
+    BitArray b(16);
+    b.set(0);
+    b.set(5);
+    b.set(15);
+    REQUIRE(b.asString().compare("1000010000000001")==0);
+    b.reset(0);
+    REQUIRE(b.asString().compare("0000010000000001")==0);
+}
+

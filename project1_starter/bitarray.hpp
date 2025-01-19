@@ -35,6 +35,13 @@ public:
 
 private:
   // TODO
+
+  uint8_t *point; //remember this pointe
+  intmax_t numbits; //number of bits
+  bool Valid; //checks if bitset can be valid (t or f)
+  
 };
+
+
 
 #endif
