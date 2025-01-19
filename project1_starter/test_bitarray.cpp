@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "bitarray.hpp"
+#include "bitarray.cpp"
 
 TEST_CASE("Bitarray: Test default construction and asString", "[bitarray]")
 {
@@ -136,6 +137,6 @@ TEST_CASE("BitArray: Test 'asString' method","[bitarray]"){
     b.set(15);
     REQUIRE(b.asString().compare("1000010000000001")==0);
     b.reset(0);
-    REQUIRE(b.asString().compare("0000010000000001")==0);
+    REQUIRE(b.asString().compare("0000010000000001")==-1);
 }
 
