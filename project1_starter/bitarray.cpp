@@ -6,7 +6,13 @@
 //When encountering an unknown error, searched it on GPT to see possible reasons as to why the error was occuring. Through extensive reading
 //reasons from GPT and revisting my code to debug, errors were solved and code functions as it should. 
 
-BitArray::BitArray():numbits(8),point(new uint8_t[1]{0}),Valid(true) {}
+BitArray::BitArray(){
+    numbits=8;
+    point= new uint8_t [1];
+    *point =0;
+    Valid=true;
+    
+}
 
 BitArray::BitArray(intmax_t size) {
     // TODO
