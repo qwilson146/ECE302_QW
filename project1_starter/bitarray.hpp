@@ -34,6 +34,11 @@ public:
 
   std::string asString() const;
 
+  int countones() const;
+  
+
+  
+
 private:
   // TODO
 
