@@ -45,6 +45,9 @@ public:
 
 private:
   // TODO
+  size_t size;
+  size_t maxcap;
+  ptr<T[]> array;
 };
 
 #include "array_list.tpp"
