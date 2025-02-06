@@ -45,9 +45,9 @@ public:
 
 private:
   // TODO
-  size_t size;
-  size_t maxcap;
-  ptr<T[]> array;
+  size_t size; //size 
+  size_t maxcap; //max capacity
+  T* array; //array w T pointer
 };
 
 #include "array_list.tpp"
