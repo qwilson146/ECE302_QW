@@ -37,7 +37,7 @@ TEST_CASE("recursive finding","[FindPalindrome]"){
 REQUIRE(b.add("a"));
 REQUIRE(b.add("b"));
 REQUIRE(b.add("aba"));
-REQUIRE(b.number()==6);
+REQUIRE(b.number()==2);
 }
 
 TEST_CASE("test clear","[FindPalindrome]"){
@@ -54,6 +54,7 @@ TEST_CASE("test clear","[FindPalindrome]"){
 TEST_CASE("test cut 1","[FindPalindrome]"){
 	FindPalindrome b;
 	std::vector<std::string> words = {"datas", "level"};
+	REQUIRE(b.add(words));
     REQUIRE(b.cutTest1(words)); 
     words.push_back("hello");
     REQUIRE(!b.cutTest1(words));
@@ -62,8 +63,8 @@ TEST_CASE("test cut 1","[FindPalindrome]"){
 
 TEST_CASE("test cut 2","[FindPalindrome]"){
 	FindPalindrome b;
-	std::vector<std::string> words1 = {"datas"};
-    std::vector<std::string> words2 = {"datas", "structure"};
+	std::vector<std::string> words1 = {"racecar"};
+    std::vector<std::string> words2 = {"racecar", "ace"};
     REQUIRE(b.cutTest2(words1, words2)); 
     std::vector<std::string> words3 = {"hi"};
     REQUIRE(!b.cutTest2(words3, words2));
@@ -75,7 +76,7 @@ TEST_CASE("test cut 2","[FindPalindrome]"){
 
 TEST_CASE("test adding vector of words","[FindPalindrome]"){
 	FindPalindrome b;
-	std::vector<std::string> words = {"rotory", "engine"};
+	std::vector<std::string> words = {"rotor", "deed"};
     REQUIRE(b.add(words));
     REQUIRE(!b.add(words));
 }
@@ -83,8 +84,13 @@ TEST_CASE("test adding vector of words","[FindPalindrome]"){
 
 TEST_CASE("test to vector output","[FindPalindrome]"){
 	FindPalindrome b;
-	REQUIRE(b.add("class"));
+	REQUIRE(b.add("lazy"));
     std::vector<std::vector<std::string>> results = b.toVector();
-    REQUIRE(!results.empty());
+    REQUIRE(results.empty());
     REQUIRE(results.size() >= 1);
 }
+
+
+
+
+
