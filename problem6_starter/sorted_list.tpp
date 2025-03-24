@@ -41,10 +41,13 @@ template <typename T, typename L>
 void SortedList<T, L>::insert(const T &item)
 {
   // TODO
+  //starting at the first position (1 based in)
   std::size_t position = 1;
+  //finding the correct position by comparison
   while(position<=plist.getLength()&&plist.getEntry(position)<item) {
     ++position;
   }
+  //inserting item at correct position
   plist.insert(position,item);
 
 }
@@ -53,14 +56,18 @@ template <typename T, typename L>
 void SortedList<T, L>::remove(const T &item)
 {
   // TODO
+  //starting at first pos
   std::size_t position=1;
   while(position<=plist.getLength()) {
     if(plist.getEntry(position)==item) {
+    
       plist.remove(position);
       return; // Item found and removed, exit the function
     }
+    //increment to continue to traverse through list
     ++position;
   }
+  //error if item not found in list
   throw std::invalid_argument("item not found in the list");
 }
 
@@ -86,12 +93,15 @@ template <typename T, typename L>
 std::size_t SortedList<T, L>::getPosition(const T &newValue)
 {
   // TODO
+  //start at first position in list
   std::size_t position=1;
   while(position<=plist.getLength()) {
     if(plist.getEntry(position)==newValue) {
-      return position;
+      return position;//return position if item is found
     }
+    //increment to continue to traverse through list
     ++position;
   }
+  //error if the item is not found.
   throw std::invalid_argument("item not found in the list");
 }

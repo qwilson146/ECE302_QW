@@ -89,3 +89,146 @@ TEST_CASE("Priority: Testing Priority Queue Add/isEmpty/peek/remove", "[priority
   pq.remove();
   REQUIRE(pq.peek() == 2);
 }
+
+
+TEST_CASE("Priority: Testing Sorted List with random and duplicate values", "[sorted list]")
+{
+  SortedList<int, List<int>> sort;
+
+ 
+  sort.insert(37);
+  sort.insert(2);
+  sort.insert(89);
+  sort.insert(14);
+  sort.insert(37); 
+  sort.insert(-9);
+  sort.insert(56);
+  sort.insert(12);
+  sort.insert(2);  
+
+  REQUIRE(sort.getLength() == 9); 
+
+  REQUIRE(sort.getEntry(1) == -9);
+  REQUIRE(sort.getEntry(2) == 2);
+  REQUIRE(sort.getEntry(3) == 2); 
+  REQUIRE(sort.getEntry(4) == 12);
+  REQUIRE(sort.getEntry(5) == 14);
+  REQUIRE(sort.getEntry(6) == 37);
+  REQUIRE(sort.getEntry(7) == 37); 
+  REQUIRE(sort.getEntry(8) == 56);
+  REQUIRE(sort.getPosition(-9) == 1);
+  REQUIRE(sort.getPosition(14) == 5);
+
+
+  sort.remove(2);
+  REQUIRE(sort.getEntry(3) == 12);
+  REQUIRE(sort.getLength() == 7);
+
+
+  sort.removeAt(1);
+  sort.removeAt(1);
+  sort.removeAt(1);
+  sort.removeAt(1);
+  sort.removeAt(1);
+  sort.removeAt(1);
+  REQUIRE(sort.isEmpty());
+}
+
+TEST_CASE("Priority: Testing SortedList with large random values", "[sorted list]")
+{
+  SortedList<int, List<int>> sort;
+
+  sort.insert(9234);
+  sort.insert(2341);
+  sort.insert(8099);
+  sort.insert(4923);
+  sort.insert(1234);
+  sort.insert(9876);
+  sort.insert(7123);
+  sort.insert(4389);
+  sort.insert(2100);
+
+  REQUIRE(sort.getLength() == 9);  
+
+  REQUIRE(sort.getEntry(1) == 1234);
+  REQUIRE(sort.getEntry(9) == 9876);
+
+  sort.remove(1234);
+  sort.remove(9876);
+  REQUIRE(sort.getLength() == 7); 
+}
+
+TEST_CASE("Priority: Testing Priority Queue with random values", "[priority queue]")
+{
+  PriorityQueueType pq;
+
+  // Insert random values
+  pq.add(325);
+  pq.add(750);
+  pq.add(85);
+  pq.add(902);
+  pq.add(487);
+
+  REQUIRE(pq.peek() == 902);
+
+  pq.remove();
+  REQUIRE(pq.peek() == 750); 
+
+  pq.remove();
+  REQUIRE(pq.peek() == 487);
+
+  pq.remove();
+  pq.remove();
+  pq.remove();
+  REQUIRE(pq.peek() == 85); 
+}
+
+TEST_CASE("Priority: Testing Priority Queue with random order", "[priority queue]")
+{
+  PriorityQueueType pq;
+
+  pq.add(920);
+  pq.add(307);
+  pq.add(570);
+  pq.add(115);
+  pq.add(888);
+
+  REQUIRE(pq.peek() == 920); 
+
+  pq.remove();
+  REQUIRE(pq.peek() == 888);
+
+  pq.remove();
+  REQUIRE(pq.peek() == 570); 
+
+  pq.remove();
+  pq.remove();
+  pq.remove();
+  REQUIRE(pq.isEmpty()); 
+}
+
+
+TEST_CASE("Priority: Testing Priority Queue with mixed random values", "[priority queue]")
+{
+  PriorityQueueType pq;
+
+  
+  pq.add(589);
+  pq.add(150);
+  pq.add(922);
+  pq.add(371);
+  pq.add(456);
+
+  REQUIRE(pq.peek() == 922);
+
+  pq.remove();
+  REQUIRE(pq.peek() == 589);
+
+  pq.remove();
+  REQUIRE(pq.peek() == 456);  
+
+  pq.remove();
+  pq.remove();
+  pq.remove();
+  REQUIRE(pq.isEmpty()); 
+}
