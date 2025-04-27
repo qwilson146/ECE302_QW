@@ -107,6 +107,7 @@ private:
   Coord start;
   Coord end;
   Coord next;
+  
 };
 
 // Nonmember functions
